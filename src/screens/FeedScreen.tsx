@@ -98,7 +98,6 @@ export const FeedScreen = observer(() => {
         </View>
       </View>
 
-      {/* Лента */}
       <FlatList
         data={postStore.posts}
         keyExtractor={(item) => item.id}

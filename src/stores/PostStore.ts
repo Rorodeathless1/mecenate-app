@@ -37,8 +37,6 @@ class PostStore {
     makeAutoObservable(this);
   }
 
-  // --- Feed ---
-
   setTierFilter(tier: TierFilter) {
     this.tierFilter = tier;
     this.resetFeed();
@@ -89,8 +87,6 @@ class PostStore {
     });
   }
 
-  // --- Post Detail ---
-
   async fetchPost(id: string) {
     runInAction(() => {
       this.isLoadingPost = true;
@@ -114,8 +110,6 @@ class PostStore {
     }
   }
 
-  // --- Like ---
-
   async toggleLike(postId: string) {
     if (this.isLiking) return;
 
@@ -126,13 +120,11 @@ class PostStore {
     try {
       const res = await toggleLike(postId);
       runInAction(() => {
-        // обновляем в ленте
         const post = this.posts.find((p) => p.id === postId);
         if (post) {
           post.isLiked = res.data.isLiked;
           post.likesCount = res.data.likesCount;
         }
-        // обновляем в детальном экране
         if (this.currentPost?.id === postId) {
           this.currentPost.isLiked = res.data.isLiked;
           this.currentPost.likesCount = res.data.likesCount;
@@ -144,8 +136,6 @@ class PostStore {
       });
     }
   }
-
-  // --- Comments ---
 
   resetComments() {
     this.comments = [];
@@ -186,15 +176,12 @@ class PostStore {
 
     try {
       await addComment(postId, text);
-      // комментарий придёт через WebSocket
     } finally {
       runInAction(() => {
         this.isSendingComment = false;
       });
     }
   }
-
-  // --- WebSocket events ---
 
   handleWSEvent(event: WSEvent) {
     if (event.type === "like_updated") {

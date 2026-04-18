@@ -15,13 +15,11 @@ export const PostCard = ({ post, onPress }: Props) => {
       onPress={() => onPress(post)}
       activeOpacity={0.9}
     >
-      {/* Автор */}
       <View style={styles.author}>
         <Image source={{ uri: post.author.avatarUrl }} style={styles.avatar} />
         <Text style={styles.authorName}>{post.author.displayName}</Text>
       </View>
 
-      {/* Обложка */}
       {post.tier === "paid" ? (
         <View style={styles.paidCover}>
           <Image
@@ -45,7 +43,6 @@ export const PostCard = ({ post, onPress }: Props) => {
         <Image source={{ uri: post.coverUrl }} style={styles.cover} />
       )}
 
-      {/* Контент */}
       <View style={styles.content}>
         {post.tier === "paid" ? (
           <>
@@ -64,8 +61,6 @@ export const PostCard = ({ post, onPress }: Props) => {
           </>
         )}
 
-        {/* Кнопки */}
-        {/* Кнопки — только для free */}
         {post.tier === "free" && (
           <View style={styles.buttons}>
             <View style={styles.actionButton}>

@@ -63,7 +63,6 @@ export interface LikeResponse {
 
 export type TierFilter = "all" | "free" | "paid";
 
-// WebSocket events
 export type WSEvent =
   | { type: "ping" }
   | { type: "like_updated"; postId: string; likesCount: number }
